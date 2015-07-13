@@ -47,7 +47,17 @@ From the mention of specifying a column to use for marker labels I have deduced 
 
 ## Technical
 
+While a full application would require persistence of data using a BaaS such as Firebase or by implementing our own backend exposing an API to the frontend, this project has no such requirement.
+
+This means that "full-stack" client-side frameworks such as Angular or Ember are less relevant with the complixity they add, and that data management/binding framework such as Backbone is not inherintly needed either.
+
+The greatest challenge lies in tying a quite substantial user interface with complex interactions between multiple components together, ensuring tight syncronization and efficient rendering at all times. Using React components and the Flux data flow architecture seems like a good fit for this.
+
 ### Stack
+
+* UI components: React
+* Module bundler: Webpack
+* Tests: Karma, Unexpected
 
 ### Structure
 
