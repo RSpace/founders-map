@@ -25,7 +25,7 @@ The requirements do not make it clear if the project is about making a page only
 
 ## UX
 
-The user interface consists of three components: The input field, the table and the map. For a full application, a main navigation, footer etc. would also be relevant, but are not considered here.
+The user interface ([image](ux/page_structure.jpg)) consists of three components: The input field ([image](ux/input_and_map.jpg)), the table ([image](ux/table.jpg)) and the map ([image](ux/input_and_map.jpg)). For a full application, a main navigation, footer etc. would also be relevant, but are not considered here.
 
 The three compoments should stay syncronised at all times, ie. when user changes the CSV data, both the table and the map should update, and when the configuration in the table is change, the map should update.
 
