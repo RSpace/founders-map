@@ -76,9 +76,16 @@ The greatest challenge lies in tying a quite substantial user interface with com
 * Module bundler: Webpack
 * Tests: Karma, Unexpected
 
-### Components
+### Structure
+
+React components:
 
 * InputField: Plain text area with separator selector
 * Map: Instance of react-google-maps npm component
-* Table: Instance of fixed-data-table component
+* Table: Wrapped instance of fixed-data-table component
 * Page: Integration component for the full page
+
+Services:
+
+* CSVParser: Takes a string with CSV data, outputs a two-dimensional array of data
+* Geocoder: Handles parsing of address information into latitude and longitude
