@@ -56,9 +56,13 @@ The greatest challenge lies in tying a quite substantial user interface with com
 ### Stack
 
 * UI components: React
+* Data flow: Flux
 * Module bundler: Webpack
 * Tests: Karma, Unexpected
 
-### Structure
-
 ### Components
+
+* InputField: Plain text area with separator selector
+* Map: Instance of react-google-maps npm component
+* Table: Instance of fixed-data-table component
+* Page: Integration component for the full page
