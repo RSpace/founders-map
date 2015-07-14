@@ -1,3 +1,19 @@
+# Installing and running for development
+
+## Dependencies
+
+Make sure you have node and npm installed. Then run:
+
+    npm install
+
+## Development server
+
+    npm run dev
+
+## Tests
+
+    npm run test
+
 # Considerations
 
 This part of the readme describes my considerations about the different aspects of the project.
