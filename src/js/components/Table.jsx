@@ -19,7 +19,6 @@ const Table = React.createClass({
   },
 
   rowGetter(rowIndex) {
-    console.log(rowIndex);
     return ['test', 'test'];
   },
 
