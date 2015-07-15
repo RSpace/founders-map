@@ -21,6 +21,7 @@
   "dependencies": {
     "normalize.css": "^3.0.3",
     "react": "^0.13.3",
+    "flux": "^2.0.3",
     "fixed-data-table": "^0.4.1",
     "responsive-fixed-data-table": "^1.4.3",
     "react-google-maps": "^1.7.1"
