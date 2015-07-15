@@ -1,3 +1,5 @@
+'use strict';
+
 class CSVParserService {
   static getArrayFromCSVString(csvString) {
     let columns = csvString.split('\n');

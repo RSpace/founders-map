@@ -3,6 +3,7 @@ import FixedDataTable from 'fixed-data-table';
 import ResponsiveFixedDataTable from 'responsive-fixed-data-table';
 import style from '../../scss/components/Table.scss';
 import fixedDataTableStyle from 'fixed-data-table/dist/fixed-data-table.css'
+import CompanyStore from '../stores/CompanyStore';
 
 const Table = React.createClass({
 
@@ -12,14 +13,25 @@ const Table = React.createClass({
   },
 
   getInitialState() {
-    return {};
+    return {
+      companies: CompanyStore.getCompanies()
+    };
   },
 
   componentDidMount() {
+    CompanyStore.addChangeListener(this._onChange);
+  },
+  componentWillUnmount() {
+    CompanyStore.removeChangeListener(this._onChange);
+  },
+  _onChange() {
+    this.setState({
+      companies: CompanyStore.getCompanies()
+    })
   },
 
   rowGetter(rowIndex) {
-    return ['test', 'test'];
+    return this.state.companies[rowIndex];
   },
 
   render() {
