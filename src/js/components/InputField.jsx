@@ -19,7 +19,9 @@ const InputField = React.createClass({
 
 	render() {
 		return (
-			<textarea defaultValue={this.state.value} />
+			<div className="input-field-component">
+				<textarea defaultValue={this.state.value} />
+			</div>
 		);
 	}
 

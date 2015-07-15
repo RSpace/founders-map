@@ -20,7 +20,7 @@ const Map = React.createClass({
     return (
       <GoogleMaps containerProps={{
           style: {
-            width: '500px',
+            width: '300px',
             height: '500px'
           }
         }}
