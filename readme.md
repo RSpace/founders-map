@@ -24,10 +24,10 @@ The requirements do not make it clear if the project is about making a page only
 
 ### User stories
 
-* [ ] User can input data in CSV format
+* [x] User can input data in CSV format
 * [ ] User can separate CSV columns with comma, semicolon or tab
 * [ ] User can see each row as a single marker on a map
-* [ ] User can see input data visualized in a table
+* [x] User can see input data visualized in a table
 * [ ] User can select which columns contain latitude/longitude information
 * [ ] User can select which columns contain geolocating point on map
 * [ ] User can select a column for marker labels

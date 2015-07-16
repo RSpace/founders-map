@@ -8,16 +8,6 @@ const Page = React.createClass({
 
   displayName: 'Page',
 
-  propTypes: {
-  },
-
-  getInitialState() {
-    return {};
-  },
-
-  componentDidMount() {
-  },
-
   render() {
     return (
       <div className="page-component">
