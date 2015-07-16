@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import {GoogleMaps, Marker} from "react-google-maps";
 import style from '../../scss/components/Map.scss';
+import CompanyStore from '../stores/CompanyStore';
 
 const Map = React.createClass({
 
@@ -10,10 +11,41 @@ const Map = React.createClass({
   },
 
   getInitialState() {
-    return {};
+    return {
+      companies: CompanyStore.getCompanies(),
+      mappings: CompanyStore.getMappings()
+    };
   },
 
   componentDidMount() {
+    CompanyStore.addChangeListener(this._onChange);
+  },
+  componentWillUnmount() {
+    CompanyStore.removeChangeListener(this._onChange);
+  },
+  _onChange() {
+    this.setState({
+      companies: CompanyStore.getCompanies(),
+      mappings: CompanyStore.getMappings()
+    })
+  },
+
+  getCompanyPosition(company) {
+    return {
+      lat: parseFloat(company[this.state.mappings.latitude], 10),
+      lng: parseFloat(company[this.state.mappings.longitude], 10)
+    };
+  },
+
+  toMarker(company, index) {
+    var position = this.getCompanyPosition(company);
+
+    return (
+      <Marker
+        position={position}
+        key={'marker' + index}
+      />
+    );
   },
 
   render() {
@@ -27,16 +59,10 @@ const Map = React.createClass({
         googleMapsApi={
           "undefined" !== typeof google ? google.maps : null
         }
-        zoom={3}
-        center={{lat: 37.457674, lng: -122.163452}}
+        zoom={10}
+        center={this.getCompanyPosition(this.state.companies[0])}
       >
-        <Marker
-          position={{
-            lat: 37.457674,
-            lng: -122.163452
-          }}
-          key="Google"
-        />
+        {this.state.companies.map(this.toMarker, this)}
       </GoogleMaps>
     );
   }
