@@ -14,6 +14,7 @@ var _store = {
   companies: [],
   headers: [],
   mappings: {
+    markerLabel: 1,
     latitude: 9,
     longitude: 10
   }

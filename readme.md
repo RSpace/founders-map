@@ -26,7 +26,7 @@ The requirements do not make it clear if the project is about making a page only
 
 * [x] User can input data in CSV format
 * [ ] User can separate CSV columns with comma, semicolon or tab
-* [ ] User can see each row as a single marker on a map
+* [x] User can see each row as a single marker on a map
 * [x] User can see input data visualized in a table
 * [ ] User can select which columns contain latitude/longitude information
 * [ ] User can select which columns contain geolocating point on map
@@ -38,6 +38,7 @@ The requirements do not make it clear if the project is about making a page only
 * [ ] User can filter the table by any column
 * [ ] User can take advantage of viewing the application on a large display
 * [ ] User can use the application on a small display
+* [ ] User can see details about the company when clicking a marker on the map
 
 ## UX
 

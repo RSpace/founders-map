@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import {GoogleMaps, Marker} from "react-google-maps";
+import {GoogleMaps, Marker, OverlayView} from "react-google-maps";
 import style from '../../scss/components/Map.scss';
 import CompanyStore from '../stores/CompanyStore';
 
@@ -44,8 +44,29 @@ const Map = React.createClass({
       <Marker
         position={position}
         key={'marker' + index}
+        labelContent='hej'
       />
     );
+  },
+
+  toOverlay(company, index) {
+    var position = this.getCompanyPosition(company);
+
+    return (
+        <OverlayView
+          position={position}
+          key={'overlay' + index}
+          getPixelPositionOffset={this.getPixelPositionOffset}
+        >
+          <div className="map-component__marker-label">
+            {company[this.state.mappings.markerLabel]}
+          </div>
+        </OverlayView>
+    );
+  },
+
+  getPixelPositionOffset (width, height) {
+    return {x: -(width / 2), y: 0};
   },
 
   render() {
@@ -63,6 +84,7 @@ const Map = React.createClass({
         center={this.getCompanyPosition(this.state.companies[0])}
       >
         {this.state.companies.map(this.toMarker, this)}
+        {this.state.companies.map(this.toOverlay, this)}
       </GoogleMaps>
     );
   }
