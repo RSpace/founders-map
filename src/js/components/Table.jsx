@@ -43,6 +43,7 @@ const Table = React.createClass({
         width={100}
         flexGrow={1}
         dataKey={index}
+        key={'header' + index}
       />
     );
   },
