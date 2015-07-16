@@ -14,6 +14,7 @@ const Table = React.createClass({
 
   getInitialState() {
     return {
+      headers: CompanyStore.getHeaders(),
       companies: CompanyStore.getCompanies()
     };
   },
@@ -26,6 +27,7 @@ const Table = React.createClass({
   },
   _onChange() {
     this.setState({
+      headers: CompanyStore.getHeaders(),
       companies: CompanyStore.getCompanies()
     })
   },
@@ -34,25 +36,25 @@ const Table = React.createClass({
     return this.state.companies[rowIndex];
   },
 
+  toColumn(header, index) {
+    return (
+      <FixedDataTable.Column
+        label={header}
+        width={100}
+        flexGrow={1}
+        dataKey={index}
+      />
+    );
+  },
+
   render() {
     return (
       <ResponsiveFixedDataTable
         rowHeight={50}
         rowGetter={this.rowGetter}
-        rowsCount={10}
+        rowsCount={this.state.companies.length}
         headerHeight={50}>
-        <FixedDataTable.Column
-          label="Col 1"
-          width={100}
-          flexGrow={1}
-          dataKey={0}
-        />
-        <FixedDataTable.Column
-          label="Col 2"
-          width={100}
-          flexGrow={1}
-          dataKey={1}
-        />
+        {this.state.headers.map(this.toColumn, this)}
       </ResponsiveFixedDataTable>
     );
   }
