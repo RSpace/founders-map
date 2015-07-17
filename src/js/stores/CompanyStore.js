@@ -31,6 +31,10 @@ var setSeparator = function(separator) {
   syncFromCsvData();
 };
 
+var setMapping = function(mappingKey, columnIndex) {
+  _store.mappings[mappingKey] = columnIndex;
+};
+
 var syncFromCsvData = function() {
   var dataArray = CSVParserService.getArrayFromCSVString(_store.csvData, _store.separator);
   _store.headers = dataArray[0];
@@ -69,6 +73,10 @@ AppDispatcher.register(function(action){
       break;
     case CompanyConstants.SET_SEPARATOR:
       setSeparator(action.separator);
+      CompanyStore.emit(CHANGE_EVENT);
+      break;
+    case CompanyConstants.SET_MAPPING:
+      setMapping(action.mappingKey, action.columnIndex);
       CompanyStore.emit(CHANGE_EVENT);
       break;
     default:

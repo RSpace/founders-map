@@ -16,6 +16,14 @@ var CompanyActions = {
       actionType: CompanyConstants.SET_SEPARATOR,
       separator: separator
     });
+  },
+
+  setMapping: function(columnIndex, mappingKey){
+    AppDispatcher.dispatch({
+      actionType: CompanyConstants.SET_MAPPING,
+      mappingKey: mappingKey,
+      columnIndex: columnIndex
+    });
   }
 };
 

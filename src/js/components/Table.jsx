@@ -4,6 +4,7 @@ import ResponsiveFixedDataTable from 'responsive-fixed-data-table';
 import style from '../../scss/components/Table.scss';
 import fixedDataTableStyle from 'fixed-data-table/dist/fixed-data-table.css'
 import CompanyStore from '../stores/CompanyStore';
+import CompanyActions from '../actions/CompanyActions';
 
 const Table = React.createClass({
 
@@ -15,7 +16,8 @@ const Table = React.createClass({
   getInitialState() {
     return {
       headers: CompanyStore.getHeaders(),
-      companies: CompanyStore.getCompanies()
+      companies: CompanyStore.getCompanies(),
+      mappings: CompanyStore.getMappings()
     };
   },
 
@@ -28,12 +30,44 @@ const Table = React.createClass({
   _onChange() {
     this.setState({
       headers: CompanyStore.getHeaders(),
-      companies: CompanyStore.getCompanies()
+      companies: CompanyStore.getCompanies(),
+      mappings: CompanyStore.getMappings()
     })
   },
 
   rowGetter(rowIndex) {
     return this.state.companies[rowIndex];
+  },
+
+  headerRenderer(label, cellDataKey, columnData, rowData, width) {
+    var selectedMapping = this.getSelectedMapping(cellDataKey);
+    return (
+      <div>
+        <div>{label}</div>
+        <div>
+          <select defaultValue={selectedMapping} onChange={this.handleSetMapping.bind(this, cellDataKey)}>
+            <option value="">Mapping...</option>
+            {Object.keys(this.state.mappings).map(this.toMappingOption, this)}
+          </select>
+        </div>
+      </div>
+    );
+  },
+
+  toMappingOption(mappingKey, index) {
+    return (
+      <option value={mappingKey} key={mappingKey}>{mappingKey}</option>
+    );
+  },
+
+  getSelectedMapping(cellDataKey) {
+    var selectedMapping;
+    Object.keys(this.state.mappings).forEach(function(mappingKey) {
+      if (this.state.mappings[mappingKey] === cellDataKey) {
+        selectedMapping = mappingKey;
+      }
+    }.bind(this));
+    return selectedMapping;
   },
 
   toColumn(header, index) {
@@ -44,8 +78,13 @@ const Table = React.createClass({
         flexGrow={1}
         dataKey={index}
         key={'header' + index}
+        headerRenderer={this.headerRenderer}
       />
     );
+  },
+
+  handleSetMapping(columnIndex, event) {
+    CompanyActions.setMapping(columnIndex, event.target.value);
   },
 
   render() {
@@ -54,7 +93,7 @@ const Table = React.createClass({
         rowHeight={50}
         rowGetter={this.rowGetter}
         rowsCount={this.state.companies.length}
-        headerHeight={50}>
+        headerHeight={70}>
         {this.state.headers.map(this.toColumn, this)}
       </ResponsiveFixedDataTable>
     );

@@ -28,9 +28,9 @@ The requirements do not make it clear if the project is about making a page only
 * [x] User can separate CSV columns with comma, semicolon or tab
 * [x] User can see each row as a single marker on a map
 * [x] User can see input data visualized in a table
-* [ ] User can select which columns contain latitude/longitude information
+* [x] User can select a column for marker labels
+* [x] User can select which columns contain latitude/longitude information
 * [ ] User can select which columns contain geolocating point on map
-* [ ] User can select a column for marker labels
 * [ ] User can click links in the table
 * [ ] User can see referenced images in the table
 * [ ] User can select which rows to show on the map
@@ -96,3 +96,4 @@ Services:
 [ ] Error handling of malformed and incomplete data
 [ ] Much more elaborate component tests
 [ ] Integration tests (ie. communication between components on the page)
+[ ] Clean up mix of ES5 and ES6 syntax
