@@ -25,7 +25,7 @@ The requirements do not make it clear if the project is about making a page only
 ### User stories
 
 * [x] User can input data in CSV format
-* [ ] User can separate CSV columns with comma, semicolon or tab
+* [x] User can separate CSV columns with comma, semicolon or tab
 * [x] User can see each row as a single marker on a map
 * [x] User can see input data visualized in a table
 * [ ] User can select which columns contain latitude/longitude information
@@ -90,3 +90,9 @@ Services:
 
 * CSVParser: Takes a string with CSV data, outputs a two-dimensional array of data
 * Geocoder: Handles parsing of address information into latitude and longitude
+
+# Todo list for further development
+
+[ ] Error handling of malformed and incomplete data
+[ ] Much more elaborate component tests
+[ ] Integration tests (ie. communication between components on the page)

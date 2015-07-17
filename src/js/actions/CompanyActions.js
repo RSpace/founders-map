@@ -10,6 +10,13 @@ var CompanyActions = {
       csvData: csvData
     });
   },
+
+  setSeparator: function(separator){
+    AppDispatcher.dispatch({
+      actionType: CompanyConstants.SET_SEPARATOR,
+      separator: separator
+    });
+  }
 };
 
 export default CompanyActions;

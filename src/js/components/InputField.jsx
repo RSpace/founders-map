@@ -12,22 +12,31 @@ const InputField = React.createClass({
 
 	getInitialState() {
     return {
-    	csvData: CompanyStore.getCsvData()
+    	csvData: CompanyStore.getCsvData(),
+    	separator: CompanyStore.getSeparator()
     };
 	},
 
  	componentDidMount() {
     CompanyStore.addChangeListener(this._onChange);
   },
+
   componentWillUnmount() {
     CompanyStore.removeChangeListener(this._onChange);
   },
+
   handleSetCompanies(event) {
     CompanyActions.setCsvData(event.target.value);
   },
+
+  handleSetSeparator(event) {
+  	CompanyActions.setSeparator(event.target.value);
+  },
+
   _onChange() {
     this.setState({
-      csvData: CompanyStore.getCsvData()
+      csvData: CompanyStore.getCsvData(),
+      separator: CompanyStore.getSeparator()
     })
   },
 
@@ -35,6 +44,15 @@ const InputField = React.createClass({
 		return (
 			<div className="input-field-component">
 				<textarea ref="input-field" defaultValue={this.state.csvData} onChange={this.handleSetCompanies} />
+				<div className="input-field-component__separator">
+					<label htmlFor="separator">Separator</label>
+					&nbsp;
+					<select defaultValue={this.state.separator} onChange={this.handleSetSeparator}>
+						<option value=",">,</option>
+						<option value=";">;</option>
+						<option value={"\t"}>⇥</option>
+					</select>
+				</div>
 			</div>
 		);
 	}

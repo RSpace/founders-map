@@ -17,7 +17,8 @@ var _store = {
     markerLabel: 1,
     latitude: 9,
     longitude: 10
-  }
+  },
+  separator: ','
 };
 
 var setCsvData = function(csvData) {
@@ -25,8 +26,13 @@ var setCsvData = function(csvData) {
   syncFromCsvData();
 };
 
+var setSeparator = function(separator) {
+  _store.separator = separator;
+  syncFromCsvData();
+};
+
 var syncFromCsvData = function() {
-  var dataArray = CSVParserService.getArrayFromCSVString(_store.csvData);
+  var dataArray = CSVParserService.getArrayFromCSVString(_store.csvData, _store.separator);
   _store.headers = dataArray[0];
   _store.companies = dataArray.slice(1);
 };
@@ -49,6 +55,9 @@ var CompanyStore = objectAssign({}, EventEmitter.prototype, {
   },
   getMappings: function() {
     return _store.mappings;
+  },
+  getSeparator: function() {
+    return _store.separator;
   }
 });
 
@@ -56,6 +65,10 @@ AppDispatcher.register(function(action){
   switch(action.actionType){
     case CompanyConstants.SET_CSV_DATA:
       setCsvData(action.csvData);
+      CompanyStore.emit(CHANGE_EVENT);
+      break;
+    case CompanyConstants.SET_SEPARATOR:
+      setSeparator(action.separator);
       CompanyStore.emit(CHANGE_EVENT);
       break;
     default:

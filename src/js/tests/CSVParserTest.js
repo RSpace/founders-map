@@ -14,6 +14,13 @@ describe('CSVParserService', () => {
       expect(array[0], 'to equal', ['1', 'Google', 'Larry Page & Sergey Brin', 'Mountain View', 'USA', 'CA 94043', '1600 Amphitheatre Pkwy', 'http://interviewsummary.com/wp-content/uploads/2013/07/larry-page-and-sergey-brin-of-google-620x400.jpg', 'http://google.com', '37.457674', '-122.163452']);
     });
 
+    it('parses a semi-colon string correctly', () => {
+      const csvString = "1;ham;bum\n2;gram;num";
+      let array = CSVParserService.getArrayFromCSVString(csvString, ';');
+
+      expect(array, 'to equal', [['1', 'ham', 'bum'], ['2', 'gram', 'num']]);
+    });
+
   });
 
 });

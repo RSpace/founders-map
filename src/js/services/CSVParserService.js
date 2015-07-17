@@ -1,10 +1,10 @@
 'use strict';
 
 class CSVParserService {
-  static getArrayFromCSVString(csvString) {
+  static getArrayFromCSVString(csvString, separator = ',') {
     let columns = csvString.split('\n');
     return columns.map((column) => {
-      return column.split(',');
+      return column.split(separator);
     });
   }
 }
