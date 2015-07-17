@@ -73,8 +73,8 @@ const Map = React.createClass({
     return (
       <GoogleMaps containerProps={{
           style: {
-            width: '300px',
-            height: '500px'
+            width: '100%',
+            height: '250px'
           }
         }}
         googleMapsApi={
