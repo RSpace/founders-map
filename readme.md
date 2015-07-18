@@ -93,8 +93,8 @@ Services:
 
 # Todo list for further development
 
-[ ] Error handling of malformed and incomplete data
-[ ] Much more elaborate component tests
-[ ] Integration tests (ie. communication between components on the page)
-[ ] Clean up mix of ES5 and ES6 syntax
-[ ] Fix render bug where previous mapping dropdowns are not cleared
+* [ ] Error handling of malformed and incomplete data
+* [ ] Much more elaborate component tests
+* [ ] Integration tests (ie. communication between components on the page)
+* [ ] Clean up mix of ES5 and ES6 syntax
+* [ ] Fix render bug where previous mapping dropdowns are not cleared
