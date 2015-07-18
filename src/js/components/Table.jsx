@@ -5,6 +5,8 @@ import style from '../../scss/components/Table.scss';
 import fixedDataTableStyle from 'fixed-data-table/dist/fixed-data-table.css'
 import CompanyStore from '../stores/CompanyStore';
 import CompanyActions from '../actions/CompanyActions';
+import MarkupService from '../services/MarkupService.js';
+import Markup from './Markup.jsx';
 
 const Table = React.createClass({
 
@@ -37,6 +39,10 @@ const Table = React.createClass({
 
   rowGetter(rowIndex) {
     return this.state.companies[rowIndex];
+  },
+
+  cellRenderer(cellData, cellDataKey, rowData, rowIndex, columnData, width) {
+    return <Markup>{cellData}</Markup>
   },
 
   headerRenderer(label, cellDataKey, columnData, rowData, width) {
@@ -79,6 +85,7 @@ const Table = React.createClass({
         dataKey={index}
         key={'header' + index}
         headerRenderer={this.headerRenderer}
+        cellRenderer={this.cellRenderer}
       />
     );
   },

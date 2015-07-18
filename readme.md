@@ -31,8 +31,8 @@ The requirements do not make it clear if the project is about making a page only
 * [x] User can select a column for marker labels
 * [x] User can select which columns contain latitude/longitude information
 * [ ] User can select which columns contain geolocating point on map
-* [ ] User can click links in the table
-* [ ] User can see referenced images in the table
+* [x] User can click links in the table
+* [x] User can see referenced images in the table
 * [ ] User can select which rows to show on the map
 * [ ] User can sort the table by any column
 * [ ] User can filter the table by any column
@@ -97,3 +97,4 @@ Services:
 [ ] Much more elaborate component tests
 [ ] Integration tests (ie. communication between components on the page)
 [ ] Clean up mix of ES5 and ES6 syntax
+[ ] Fix render bug where previous mapping dropdowns are not cleared
