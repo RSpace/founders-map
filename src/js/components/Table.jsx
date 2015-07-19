@@ -103,9 +103,16 @@ const Table = React.createClass({
     CompanyActions.sortCompaniesBy(columnIndex);
   },
 
+  handleFilterBy(event) {
+    CompanyActions.filterCompaniesBy(event.target.value);
+  },
+
   render() {
     return (
       <div className="table-component">
+        <div className="table-component__filter">
+          <input type="text" placeholder="Filter by" onChange={this.handleFilterBy} />
+        </div>
         <ResponsiveFixedDataTable
           rowHeight={50}
           rowGetter={this.rowGetter}

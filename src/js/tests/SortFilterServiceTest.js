@@ -40,4 +40,17 @@ describe('SortFilterService', () => {
 
   });
 
+  describe('filterMatrixBy', () => {
+
+    const unfilteredMatrix = [['Google', 'Larry'], ['Microsoft', 'Lassie'], ['Macrosoft', 'Harry']];
+
+    it('only return the rows matching the filter query', () => {
+      let filteredMatrix = SortFilterService.filterMatrixBy(unfilteredMatrix, 'soft');
+      expect(filteredMatrix, 'to have length', 2);
+      expect(filteredMatrix[0], 'to equal', ['Microsoft', 'Lassie']);
+      expect(filteredMatrix[1], 'to equal', ['Macrosoft', 'Harry']);
+    });
+
+  });
+
 });

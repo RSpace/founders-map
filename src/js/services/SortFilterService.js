@@ -3,10 +3,10 @@
 import SortTypes from '../constants/SortTypes';
 
 class SortFilterService {
-  static sortMatrixByColumn(matrix, newSortIndex, currentDirection, currentSortIndex) {
+  static sortMatrixByColumn(matrix, newSortIndex, currentDirection, currentSortIndex, keepSortDir) {
     var sortDir = currentDirection;
     var sortBy = newSortIndex;
-    if (sortBy === currentSortIndex) {
+    if (!keepSortDir && sortBy === currentSortIndex) {
       sortDir = currentDirection === SortTypes.ASC ? SortTypes.DESC : SortTypes.ASC;
     } else {
       sortDir = SortTypes.ASC;
@@ -34,6 +34,15 @@ class SortFilterService {
       sortBy: sortBy,
       sortDir: sortDir
     }
+  }
+
+  static filterMatrixBy(matrix, filterQuery) {
+    var matrixCopy = matrix.slice();
+    return filterQuery ? matrixCopy.filter(function(row){
+      return row.some(function(value) {
+        return value.toLowerCase().indexOf(filterQuery.toLowerCase()) >= 0
+      });
+    }) : matrixCopy;
   }
 }
 

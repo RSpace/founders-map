@@ -7,9 +7,6 @@ const InputField = React.createClass({
 
 	displayName: 'InputField',
 
-	propTypes: {
-	},
-
 	getInitialState() {
     return {
     	csvData: CompanyStore.getCsvData(),

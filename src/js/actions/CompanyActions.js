@@ -31,6 +31,13 @@ var CompanyActions = {
       actionType: CompanyConstants.SORT_COMPANIES,
       columnIndex: columnIndex
     });
+  },
+
+  filterCompaniesBy: function(filterQuery){
+    AppDispatcher.dispatch({
+      actionType: CompanyConstants.FILTER_COMPANIES,
+      filterQuery: filterQuery
+    });
   }
 };
 

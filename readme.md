@@ -35,7 +35,7 @@ The requirements do not make it clear if the project is about making a page only
 * [x] User can see referenced images in the table
 * [ ] User can select which rows to show on the map
 * [x] User can sort the table by any column
-* [ ] User can filter the table by any column
+* [x] User can filter the table by any column
 * [ ] User can take advantage of viewing the application on a large display
 * [ ] User can use the application on a small display
 * [ ] User can see details about the company when clicking a marker on the map
