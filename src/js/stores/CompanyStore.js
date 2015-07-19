@@ -2,7 +2,8 @@
 
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import CompanyConstants from '../constants/CompanyConstants';
-import CSVParserService from '../services/CSVParserService'
+import CSVParserService from '../services/CSVParserService';
+import SortFilterService from '../services/SortFilterService';
 import objectAssign from 'react/lib/Object.assign';
 import Events from 'events';
 var EventEmitter = Events.EventEmitter;
@@ -18,7 +19,11 @@ var _store = {
     latitude: 9,
     longitude: 10
   },
-  separator: ','
+  separator: ',',
+  sort: {
+    by: null,
+    direction: null
+  }
 };
 
 var setCsvData = function(csvData) {
@@ -33,6 +38,15 @@ var setSeparator = function(separator) {
 
 var setMapping = function(mappingKey, columnIndex) {
   _store.mappings[mappingKey] = columnIndex;
+};
+
+var sortCompaniesBy = function(columnIndex) {
+  var sorted = SortFilterService.sortMatrixByColumn(
+    _store.companies, columnIndex, _store.sort.direction, _store.sort.by);
+
+  _store.companies = sorted.matrix;
+  _store.sort.by = sorted.sortBy;
+  _store.sort.direction = sorted.sortDir;
 };
 
 var syncFromCsvData = function() {
@@ -62,6 +76,9 @@ var CompanyStore = objectAssign({}, EventEmitter.prototype, {
   },
   getSeparator: function() {
     return _store.separator;
+  },
+  getSort: function() {
+    return _store.sort;
   }
 });
 
@@ -77,6 +94,10 @@ AppDispatcher.register(function(action){
       break;
     case CompanyConstants.SET_MAPPING:
       setMapping(action.mappingKey, action.columnIndex);
+      CompanyStore.emit(CHANGE_EVENT);
+      break;
+    case CompanyConstants.SORT_COMPANIES:
+      sortCompaniesBy(action.columnIndex);
       CompanyStore.emit(CHANGE_EVENT);
       break;
     default:

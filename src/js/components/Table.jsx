@@ -5,22 +5,15 @@ import style from '../../scss/components/Table.scss';
 import fixedDataTableStyle from 'fixed-data-table/dist/fixed-data-table.css'
 import CompanyStore from '../stores/CompanyStore';
 import CompanyActions from '../actions/CompanyActions';
-import MarkupService from '../services/MarkupService.js';
 import Markup from './Markup.jsx';
+import SortTypes from '../constants/SortTypes';
 
 const Table = React.createClass({
 
   displayName: 'Table',
 
-  propTypes: {
-  },
-
   getInitialState() {
-    return {
-      headers: CompanyStore.getHeaders(),
-      companies: CompanyStore.getCompanies(),
-      mappings: CompanyStore.getMappings()
-    };
+    return this._getStateFromStore();
   },
 
   componentDidMount() {
@@ -29,12 +22,18 @@ const Table = React.createClass({
   componentWillUnmount() {
     CompanyStore.removeChangeListener(this._onChange);
   },
-  _onChange() {
-    this.setState({
+
+  _getStateFromStore() {
+    return {
       headers: CompanyStore.getHeaders(),
       companies: CompanyStore.getCompanies(),
-      mappings: CompanyStore.getMappings()
-    })
+      mappings: CompanyStore.getMappings(),
+      sort: CompanyStore.getSort()
+    }
+  },
+
+  _onChange() {
+    this.setState(this._getStateFromStore());
   },
 
   rowGetter(rowIndex) {
@@ -49,7 +48,7 @@ const Table = React.createClass({
     var selectedMapping = this.getSelectedMapping(cellDataKey);
     return (
       <div>
-        <div>{label}</div>
+        <div><a onClick={this.handleSortCompaniesBy.bind(null, cellDataKey)}>{label}</a></div>
         <div>
           <select defaultValue={selectedMapping} onChange={this.handleSetMapping.bind(this, cellDataKey)}>
             <option value="">Mapping...</option>
@@ -77,9 +76,15 @@ const Table = React.createClass({
   },
 
   toColumn(header, index) {
+    var sortDirArrow = '';
+
+    if (this.state.sort.by === index && this.state.sort.direction !== null){
+      sortDirArrow = this.state.sort.direction === SortTypes.DESC ? ' ↓' : ' ↑';
+    }
+
     return (
       <FixedDataTable.Column
-        label={header}
+        label={header + sortDirArrow}
         width={100}
         flexGrow={1}
         dataKey={index}
@@ -94,15 +99,21 @@ const Table = React.createClass({
     CompanyActions.setMapping(columnIndex, event.target.value);
   },
 
+  handleSortCompaniesBy(columnIndex, event) {
+    CompanyActions.sortCompaniesBy(columnIndex);
+  },
+
   render() {
     return (
-      <ResponsiveFixedDataTable
-        rowHeight={50}
-        rowGetter={this.rowGetter}
-        rowsCount={this.state.companies.length}
-        headerHeight={70}>
-        {this.state.headers.map(this.toColumn, this)}
-      </ResponsiveFixedDataTable>
+      <div className="table-component">
+        <ResponsiveFixedDataTable
+          rowHeight={50}
+          rowGetter={this.rowGetter}
+          rowsCount={this.state.companies.length}
+          headerHeight={70}>
+          {this.state.headers.map(this.toColumn, this)}
+        </ResponsiveFixedDataTable>
+      </div>
     );
   }
 

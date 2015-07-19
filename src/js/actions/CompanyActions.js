@@ -24,6 +24,13 @@ var CompanyActions = {
       mappingKey: mappingKey,
       columnIndex: columnIndex
     });
+  },
+
+  sortCompaniesBy: function(columnIndex){
+    AppDispatcher.dispatch({
+      actionType: CompanyConstants.SORT_COMPANIES,
+      columnIndex: columnIndex
+    });
   }
 };
 
