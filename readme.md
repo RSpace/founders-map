@@ -33,7 +33,7 @@ The requirements do not make it clear if the project is about making a page only
 * [ ] User can select which columns contain geolocating point on map
 * [x] User can click links in the table
 * [x] User can see referenced images in the table
-* [ ] User can select which rows to show on the map
+* [x] User can select which rows to show on the map
 * [x] User can sort the table by any column
 * [x] User can filter the table by any column
 * [ ] User can take advantage of viewing the application on a large display

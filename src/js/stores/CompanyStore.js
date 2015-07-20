@@ -14,6 +14,7 @@ var _store = {
   csvData: "Id,Company Name,Founder,City,Country,Postal Code, Street,Photo,Home Page,Garage Latitude,Garage Longitude\n1,Google,Larry Page & Sergey Brin,Mountain View,USA,CA 94043,1600 Amphitheatre Pkwy,http://interviewsummary.com/wp-content/uploads/2013/07/larry-page-and-sergey-brin-of-google-620x400.jpg,http://google.com,37.457674,-122.163452\n2,Apple,Steve Jobs & Steve Wozniak,Cupertino,USA,CA 95014,1 Infinite Loop,http://i.dailymail.co.uk/i/pix/2013/02/08/article-2275512-172E13BB000005DC-732_634x505.jpg,http://apple.com,37.3403188,-122.0581469\n3,Microsoft,Bill Gates,Redmond,USA,WA 98052-7329,One Microsoft Way,http://www.techtricksworld.com/wp-content/uploads/2013/04/Young-Bill-Gates.jpg,http://microsoft.com,37.472189,-122.190191",
   companies: [],
   sortedFilteredCompanies: null,
+  companiesHiddenOnMap: [],
   headers: [],
   mappings: {
     markerLabel: 1,
@@ -67,6 +68,20 @@ var syncFromCsvData = function() {
   filterCompaniesBy(_store.filterQuery); // Apply current sorting and filtering
 };
 
+var showCompanyOnMap = function(rowIndex) {
+  var index = _store.companiesHiddenOnMap.indexOf(rowIndex);
+  if (index > -1) {
+    _store.companiesHiddenOnMap.splice(index, 1);
+  }
+};
+
+var hideCompanyOnMap = function(rowIndex) {
+  var index = _store.companiesHiddenOnMap.indexOf(rowIndex);
+  if (index === -1) {
+    _store.companiesHiddenOnMap.push(rowIndex);
+  }
+};
+
 var CompanyStore = objectAssign({}, EventEmitter.prototype, {
   addChangeListener: function(cb){
     this.on(CHANGE_EVENT, cb);
@@ -80,6 +95,12 @@ var CompanyStore = objectAssign({}, EventEmitter.prototype, {
   getCompanies: function() {
     return _store.sortedFilteredCompanies || _store.companies;
   },
+  getCompaniesShownOnMap: function() {
+    var filteredCompanies = this.getCompanies().filter(function(company, rowIndex) {
+      return this.isCompanyShownOnMap(rowIndex);
+    }, this);
+    return filteredCompanies;
+  },
   getHeaders: function() {
     return _store.headers;
   },
@@ -91,6 +112,9 @@ var CompanyStore = objectAssign({}, EventEmitter.prototype, {
   },
   getSort: function() {
     return _store.sort;
+  },
+  isCompanyShownOnMap: function(rowIndex) {
+    return _store.companiesHiddenOnMap.indexOf(rowIndex) === -1;
   }
 });
 
@@ -114,6 +138,14 @@ AppDispatcher.register(function(action){
       break;
     case CompanyConstants.FILTER_COMPANIES:
       filterCompaniesBy(action.filterQuery);
+      CompanyStore.emit(CHANGE_EVENT);
+      break;
+    case CompanyConstants.SHOW_COMPANY_ON_MAP:
+      showCompanyOnMap(action.rowIndex);
+      CompanyStore.emit(CHANGE_EVENT);
+      break;
+    case CompanyConstants.HIDE_COMPANY_ON_MAP:
+      hideCompanyOnMap(action.rowIndex);
       CompanyStore.emit(CHANGE_EVENT);
       break;
     default:

@@ -38,7 +38,15 @@ var CompanyActions = {
       actionType: CompanyConstants.FILTER_COMPANIES,
       filterQuery: filterQuery
     });
+  },
+
+  toggleCompanyOnMap: function(rowIndex, isChecked){
+    AppDispatcher.dispatch({
+      actionType: isChecked ? CompanyConstants.SHOW_COMPANY_ON_MAP : CompanyConstants.HIDE_COMPANY_ON_MAP,
+      rowIndex: rowIndex
+    });
   }
+
 };
 
 export default CompanyActions;

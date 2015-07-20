@@ -7,12 +7,9 @@ const Map = React.createClass({
 
   displayName: 'Map',
 
-  propTypes: {
-  },
-
   getInitialState() {
     return {
-      companies: CompanyStore.getCompanies(),
+      companies: CompanyStore.getCompaniesShownOnMap(),
       mappings: CompanyStore.getMappings()
     };
   },
@@ -25,7 +22,7 @@ const Map = React.createClass({
   },
   _onChange() {
     this.setState({
-      companies: CompanyStore.getCompanies(),
+      companies: CompanyStore.getCompaniesShownOnMap(),
       mappings: CompanyStore.getMappings()
     })
   },
@@ -44,7 +41,6 @@ const Map = React.createClass({
       <Marker
         position={position}
         key={'marker' + index}
-        labelContent='hej'
       />
     );
   },

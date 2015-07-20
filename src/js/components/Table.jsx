@@ -44,6 +44,10 @@ const Table = React.createClass({
     return <Markup>{cellData}</Markup>
   },
 
+  showOnMapCellRenderer(cellData, cellDataKey, rowData, rowIndex, columnData, width) {
+    return <input type="checkbox" defaultChecked={CompanyStore.isCompanyShownOnMap(rowIndex)} onChange={this.handleToggleCompanyOnMap.bind(this, rowIndex)} />;
+  },
+
   headerRenderer(label, cellDataKey, columnData, rowData, width) {
     var selectedMapping = this.getSelectedMapping(cellDataKey);
     return (
@@ -107,6 +111,10 @@ const Table = React.createClass({
     CompanyActions.filterCompaniesBy(event.target.value);
   },
 
+  handleToggleCompanyOnMap(rowIndex, event) {
+    CompanyActions.toggleCompanyOnMap(rowIndex, event.target.checked);
+  },
+
   render() {
     return (
       <div className="table-component">
@@ -117,7 +125,16 @@ const Table = React.createClass({
           rowHeight={50}
           rowGetter={this.rowGetter}
           rowsCount={this.state.companies.length}
-          headerHeight={70}>
+          headerHeight={70}
+        >
+          <FixedDataTable.Column
+            label="Show on map?"
+            width={50}
+            flexGrow={0}
+            dataKey="show-on-map"
+            key="show-on-map"
+            cellRenderer={this.showOnMapCellRenderer}
+          />
           {this.state.headers.map(this.toColumn, this)}
         </ResponsiveFixedDataTable>
       </div>
