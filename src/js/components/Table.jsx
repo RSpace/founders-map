@@ -118,9 +118,6 @@ const Table = React.createClass({
   render() {
     return (
       <div className="table-component">
-        <div className="table-component__filter">
-          <input type="text" placeholder="Filter by" onChange={this.handleFilterBy} />
-        </div>
         <ResponsiveFixedDataTable
           rowHeight={50}
           rowGetter={this.rowGetter}
@@ -137,6 +134,9 @@ const Table = React.createClass({
           />
           {this.state.headers.map(this.toColumn, this)}
         </ResponsiveFixedDataTable>
+        <div className="table-component__filter">
+          <input type="text" placeholder="Filter by" onChange={this.handleFilterBy} />
+        </div>
       </div>
     );
   }

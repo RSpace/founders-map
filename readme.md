@@ -89,7 +89,8 @@ React components:
 Services:
 
 * CSVParser: Takes a string with CSV data, outputs a two-dimensional array of data
-* Geocoder: Handles parsing of address information into latitude and longitude
+* Geocoder: Handles parsing of address information into latitude and longitude (not implemented)
+* SortFilter: Helper methods for sorting and filtering the data
 
 # Todo list for further development
 
